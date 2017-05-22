@@ -1,0 +1,8 @@
+[gpg]
+	program = gpg
+[user]
+	name = Tanishq Dubey
+	signingkey = DBA89A90
+	email = tanishq.dubey@gmail.com
+[commit]
+	gpgsign = true
