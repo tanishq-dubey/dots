@@ -1,8 +1,12 @@
-[gpg]
-	program = gpg
+# This is Git's per-user configuration file.
 [user]
-	name = Tanishq Dubey
-	signingkey = DBA89A90
-	email = tanishq.dubey@gmail.com
+# Please adapt and uncomment the following lines:
+        name = Tanishq Dubey
+        email = tanishq.dubey@gmail.com
+	signingkey = 18D4E63E9EC10E30
 [commit]
 	gpgsign = true
+[gpg]
+	program = gpg
+[core]
+	autocrlf = input

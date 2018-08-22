@@ -1,9 +1,30 @@
-" The basics
-syntax on
+" Plugins
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-set nocompatible
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
+Plugin 'Raimondi/delimitMate'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'benmills/vimux'
+Plugin 'keith/swift.vim'
+Plugin 'w0rp/ale'
+Plugin 'maralla/completor.vim'
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+" Basic Setup
+syntax on
 set smartindent
 set shiftwidth=4
+set tabstop=4
 set expandtab
 set backspace=indent,eol,start
 set ruler
@@ -13,72 +34,24 @@ set incsearch
 set hlsearch
 
 set mouse=a
-
-
-" plugins
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'scrooloose/syntastic'
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
-Plugin 'majutsushi/tagbar'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'vim-scripts/a.vim'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-fugitive'
-Plugin 'Raimondi/delimitMate'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'benmills/vimux'
-Plugin 'jez/vim-c0'
-Plugin 'jez/vim-ispc'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'flazz/vim-colorschemes'
-
-call vundle#end()
-
-" That's all for plugins
-filetype plugin indent on
-
 set laststatus=2
+
+let g:tmux_navigator_save_on_switch = 2
+
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+set splitbelow
+set splitright
+
+map <Leader>vp :VimuxPromptCommand<CR>
+map <Leader>vl :VimuxRunLastCommand<CR>
+map <Leader>vz :VimuxZoomRunner<CR>
+
 let g:airline_powerline_fonts = 1
 let g:airline_detect_paste=1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='base16_default'
-" Setting colorscheme down here because it's installed above
-colorscheme gruvbox
-
-nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
-let g:nerdtree_tabs_open_on_console_startup = 1
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-
-let g:syntastic_error_symbol = '✘'
-let g:syntastic_warning_symbol = "▲"
-
-augroup mySyntastic
-    au!
-    au FileType tex let b:syntastic_mode = "passive"
-augroup END
-
-let g:easytags_events = ['BufReadPost', 'BufWritePost']
-let g:easytags_async = 1
-let g:easytags_dynamic_files = 2
-let g:easytags_resolve_links = 1
-let g:easytags_suppress_ctags_warning = 1
-let g:tagbar_autoclose=2
-
-nmap <silent> <leader>b :TagbarToggle<CR>
-
-hi clear SignColumn
-let g:airline#extensions#hunks#non_zero_only = 1
 
 let delimitMate_expand_cr = 1
 augroup mydelimitMate
@@ -89,19 +62,9 @@ augroup mydelimitMate
     au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 augroup END
 
-let g:tmux_navigator_save_on_switch = 2
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 
-" Split navigation
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-" Open split to right and bottom
-"  its more natural
-set splitbelow
-set splitright
-
-" Remap bindings for creating splits
-nnoremap <silent> vv <C-w>v
-nnoremap <silent> vh sp
+let g:completor_clang_binary = '/usr/bin/clang'
+let g:completor_python_binary = '/usr/local/bin/python'
