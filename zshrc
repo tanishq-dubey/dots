@@ -1,4 +1,4 @@
-export ZSH=/Users/dubey/.oh-my-zsh
+export ZSH=/Users/tdubey/.oh-my-zsh
 
 ZSH_THEME="geometry/geometry"
 
@@ -6,6 +6,8 @@ plugins=(
   git
   osx
   zsh-syntax-highlighting
+  zsh-autosuggestions
+  docker
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -20,3 +22,5 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 (cat ~/.cache/wal/sequences &)
 
 fortune | cowsay
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

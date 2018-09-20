@@ -2,8 +2,8 @@
 [user]
 # Please adapt and uncomment the following lines:
         name = Tanishq Dubey
-        email = tanishq.dubey@gmail.com
-	signingkey = 18D4E63E9EC10E30
+        email = tdubey@ex.io
+    signingkey = 8C7B09950B4B270D
 [commit]
 	gpgsign = true
 [gpg]

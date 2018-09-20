@@ -16,6 +16,7 @@ Plugin 'benmills/vimux'
 Plugin 'keith/swift.vim'
 Plugin 'w0rp/ale'
 Plugin 'maralla/completor.vim'
+Plugin 'scrooloose/nerdtree'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -23,8 +24,8 @@ filetype plugin indent on    " required
 " Basic Setup
 syntax on
 set smartindent
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
+set tabstop=2
 set expandtab
 set backspace=indent,eol,start
 set ruler
@@ -35,6 +36,7 @@ set hlsearch
 
 set mouse=a
 set laststatus=2
+set showtabline=2
 
 let g:tmux_navigator_save_on_switch = 2
 
@@ -52,6 +54,8 @@ map <Leader>vz :VimuxZoomRunner<CR>
 
 let g:airline_powerline_fonts = 1
 let g:airline_detect_paste=1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#ale#enabled = 1
 
 let delimitMate_expand_cr = 1
 augroup mydelimitMate
@@ -62,9 +66,36 @@ augroup mydelimitMate
     au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 augroup END
 
+" Use TAB to complete when typing words, else inserts TABs as usual.  Uses
+" dictionary, source files, and completor to find matching words to complete.
+
+" Note: usual completion is on <C-n> but more trouble to press all the time.
+" Never type the same word twice and maybe learn a new spellings!
+" Use the Linux dictionary when spelling is in doubt.
+function! Tab_Or_Complete() abort
+    " If completor is already open the `tab` cycles through suggested completions.
+    if pumvisible()
+        return "\<C-N>"
+        " If completor is not open and we are in the middle of typing a word then
+        " `tab` opens completor menu.
+    elseif col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
+        return "\<C-R>=completor#do('complete')\<CR>"
+    else
+        " If we aren't typing a word and we press `tab` simply do the normal `tab`
+        " action.
+        return "\<Tab>"
+    endif
+endfunction
+
+" Use `tab` key to select completions.  Default is arrow keys.
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+
+" Use tab to trigger auto completion.  Default suggests completions as you type.
+let g:completor_auto_trigger = 0
+inoremap <expr> <Tab> Tab_Or_Complete()
 
 let g:completor_clang_binary = '/usr/bin/clang'
 let g:completor_python_binary = '/usr/local/bin/python'
+let g:completor_node_binary = '/usr/local/bin/node'
+
