@@ -1,5 +1,6 @@
 export ZSH=/Users/tdubey/.oh-my-zsh
 
+
 ZSH_THEME="geometry/geometry"
 
 plugins=(
@@ -19,8 +20,15 @@ export PATH=/Users/dubey/.local/bin:$PATH
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-(cat ~/.cache/wal/sequences &)
+# (cat ~/.cache/wal/sequences &)
+
+export GOPATH=$HOME/clearstreet/fleet # don't forget to change your path correctly!
+export GOROOT=/usr/local/opt/go/libexec
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
 
 fortune | cowsay
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+cd $HOME/clearstreet/fleet/  && source $HOME/clearstreet/fleet/.env >> /dev/null && cd - >> /dev/null

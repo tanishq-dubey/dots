@@ -8,6 +8,7 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
 Plugin 'Raimondi/delimitMate'
@@ -16,13 +17,23 @@ Plugin 'benmills/vimux'
 Plugin 'keith/swift.vim'
 Plugin 'w0rp/ale'
 Plugin 'maralla/completor.vim'
+"Plugin 'zxqfl/tabnine-vim'
 Plugin 'scrooloose/nerdtree'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'atelierbram/Base2Tone-vim'
+Plugin 'arcticicestudio/nord-vim'
+Plugin 'mdempsky/gocode', {'rtp': 'vim/'}
+Plugin 'fatih/vim-go'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 " Basic Setup
 syntax on
+let g:airline_theme='nord'
+
+colorscheme nord
+
 set smartindent
 set shiftwidth=2
 set tabstop=2
@@ -33,6 +44,8 @@ set number
 set showcmd
 set incsearch
 set hlsearch
+
+set backupdir=/tmp//
 
 set mouse=a
 set laststatus=2
@@ -49,7 +62,8 @@ set splitbelow
 set splitright
 
 map <Leader>vp :VimuxPromptCommand<CR>
-map <Leader>vl :VimuxRunLastCommand<CR>
+map <Leader>vl :VimuxInterruptRunner<CR>:sleep 50m<CR>:VimuxRunLastCommand<CR>
+map <Leader>vs :VimuxInterruptRunner<CR>
 map <Leader>vz :VimuxZoomRunner<CR>
 
 let g:airline_powerline_fonts = 1
@@ -92,10 +106,10 @@ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Use tab to trigger auto completion.  Default suggests completions as you type.
-let g:completor_auto_trigger = 0
-inoremap <expr> <Tab> Tab_Or_Complete()
+let g:completor_auto_trigger = 1
 
 let g:completor_clang_binary = '/usr/bin/clang'
 let g:completor_python_binary = '/usr/local/bin/python'
 let g:completor_node_binary = '/usr/local/bin/node'
+let g:completor_gocode_binary = '/Users/tdubey/clearstreet/fleet/bin/gocode'
 

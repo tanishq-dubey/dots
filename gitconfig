@@ -2,11 +2,25 @@
 [user]
 # Please adapt and uncomment the following lines:
         name = Tanishq Dubey
-        email = tdubey@ex.io
-    signingkey = 8C7B09950B4B270D
+        email = tdubey@clearstreet.io
+	signingkey = 9966B03D00C144EA
 [commit]
 	gpgsign = true
 [gpg]
 	program = gpg
 [core]
-	autocrlf = input
+  autocrlf = input
+	excludesfile = /Users/tdubey/.gitignore_global
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[alias]
+	d = difftool
+[merge]
+	tool = vimdiff
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
